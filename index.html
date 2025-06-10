@@ -384,7 +384,7 @@ Whether you’re a ministry leader, fellow developer, or someone who believes in
               <h3 class="skills-title">React</h3>
             </li>
             <li class="skills-item-circular">
-              <div class="circular-bar" data-percent="90">
+              <div class="circular-bar" data-percent="85">
                 <span class="circular-bar-text">0%</span>
                 <svg>
                   <circle class="circular-bar-bg" cx="60" cy="60" r="54"/>
@@ -394,7 +394,7 @@ Whether you’re a ministry leader, fellow developer, or someone who believes in
               <h3 class="skills-title">MySql</h3>
             </li>
             <li class="skills-item-circular">
-              <div class="circular-bar" data-percent="70">
+              <div class="circular-bar" data-percent="80">
                 <span class="circular-bar-text">0%</span>
                 <svg>
                   <circle class="circular-bar-bg" cx="60" cy="60" r="54"/>
@@ -404,7 +404,7 @@ Whether you’re a ministry leader, fellow developer, or someone who believes in
               <h3 class="skills-title">Python</h3>
             </li>
             <li class="skills-item-circular">
-              <div class="circular-bar" data-percent="80">
+              <div class="circular-bar" data-percent="90">
                 <span class="circular-bar-text">0%</span>
                 <svg>
                   <circle class="circular-bar-bg" cx="60" cy="60" r="54"/>
@@ -421,7 +421,37 @@ Whether you’re a ministry leader, fellow developer, or someone who believes in
                   <circle class="circular-bar-fg" cx="60" cy="60" r="54"/>
                 </svg>
               </div>
-              <h3 class="skills-title">CSS</h3>
+              <h3 class="skills-title">Django</h3>
+            </li> <li class="skills-item-circular">
+              <div class="circular-bar" data-percent="70">
+                <span class="circular-bar-text">0%</span>
+                <svg>
+                  <circle class="circular-bar-bg" cx="60" cy="60" r="54"/>
+                  <circle class="circular-bar-fg" cx="60" cy="60" r="54"/>
+                </svg>
+              </div>
+              <h3 class="skills-title">Jinja</h3>
+            </li>
+            <li class="skills-item-circular">
+              <div class="circular-bar" data-percent="90">
+                <span class="circular-bar-text">0%</span>
+                <svg>
+                  <circle class="circular-bar-bg" cx="60" cy="60" r="54"/>
+                  <circle class="circular-bar-fg" cx="60" cy="60" r="54"/>
+                </svg>
+              </div>
+              <h3 class="skills-title">HTML</h3>
+            </li>
+            <!-- Firebase skill added below -->
+            <li class="skills-item-circular">
+              <div class="circular-bar" data-percent="80">
+                <span class="circular-bar-text">0%</span>
+                <svg>
+                  <circle class="circular-bar-bg" cx="60" cy="60" r="54"/>
+                  <circle class="circular-bar-fg" cx="60" cy="60" r="54"/>
+                </svg>
+              </div>
+              <h3 class="skills-title">Firebase</h3>
             </li>
           </ul>
 
@@ -441,11 +471,11 @@ Whether you’re a ministry leader, fellow developer, or someone who believes in
 
           <div class="contact-card">
 
-            <p class="card-subtitle">Don't be shy</p>
+            <p class="card-subtitle">Feel Free</p>
 
-            <h2 class="h2 section-title">Drop Me a Line</h2>
+            <h2 class="h2 section-title">Reach Out to me</h2>
 
-            <div class="wrapper">
+            <!-- <div class="wrapper">
 
               <form action="" class="contact-form">
 
@@ -457,7 +487,7 @@ Whether you’re a ministry leader, fellow developer, or someone who believes in
 
                 <button type="submit" class="btn-submit">Submit Message</button>
 
-              </form>
+              </form> -->
 
               <ul class="contact-list">
 
@@ -778,13 +808,31 @@ document.addEventListener('DOMContentLoaded', function() {
   text-shadow: 0 2px 8px #001f3f, 0 1px 0 #0077b522;
 }
 .skills-circular-list {
-  display: flex;
-  flex-direction: row;   /* Stack horizontally */
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-template-rows: repeat(2, auto);  /* 2 rows */
+  gap: 40px 32px;
+  justify-items: center;
   align-items: center;
   list-style: none;
   padding: 0;
   margin: 40px 0 0 0;
+}
+
+/* Responsive: stack to 2 columns on medium screens */
+@media (max-width: 900px) {
+  .skills-circular-list {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+}
+
+/* Responsive: stack to 1 column on small screens */
+@media (max-width: 600px) {
+  .skills-circular-list {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
 }
 
 /* Increase font size for about section */
@@ -916,6 +964,50 @@ document.addEventListener('DOMContentLoaded', function() {
     </linearGradient>
   </defs>
 </svg>
+
+<script>
+// Interactive & animated color-changing skill circles
+
+// Array of color gradients to cycle through
+const gradients = [
+  ['#0077b5', '#00c6fb'],
+  ['#001f3f', '#0077b5'],
+  ['#00c6fb', '#0077b5'],
+  ['#ff9800', '#0077b5'],
+  ['#43e97b', '#38f9d7'],
+  ['#f7971e', '#ffd200'],
+  ['#fd5c63', '#0077b5']
+];
+
+// Helper to update the SVG gradient dynamically
+function updateSkillGradient(colors) {
+  const stops = document.querySelectorAll('#skill-gradient stop');
+  if (stops.length >= 2) {
+    stops[0].setAttribute('stop-color', colors[0]);
+    stops[1].setAttribute('stop-color', colors[1]);
+  }
+}
+
+// Add hover effect to each circular bar
+document.querySelectorAll('.circular-bar').forEach((bar, idx) => {
+  bar.addEventListener('mouseenter', function () {
+    // Pick a random gradient on hover
+    const colors = gradients[Math.floor(Math.random() * gradients.length)];
+    updateSkillGradient(colors);
+  });
+  bar.addEventListener('mouseleave', function () {
+    // Restore default gradient
+    updateSkillGradient(['#0077b5', '#00c6fb']);
+  });
+});
+
+// Cycle gradients every 3 seconds for a lively effect
+let gradientIndex = 0;
+setInterval(() => {
+  gradientIndex = (gradientIndex + 1) % gradients.length;
+  updateSkillGradient(gradients[gradientIndex]);
+}, 3000);
+</script>
 
 </body>
 
